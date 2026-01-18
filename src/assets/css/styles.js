@@ -153,6 +153,77 @@ const styles = {
     fontSize: '0.875rem',
     lineHeight: 1.6,
   },
+  resumeContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2rem',
+  },
+  resumeItem: {
+    marginBottom: '1.5rem',
+  },
+  resumeItemHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: '0.5rem',
+    flexWrap: 'wrap',
+    gap: '0.5rem',
+  },
+  resumeItemTitle: {
+    color: 'white',
+    fontSize: '1.125rem',
+    fontWeight: 600,
+  },
+  resumeItemSubtitle: {
+    color: '#eab308',
+    fontSize: '0.875rem',
+    fontWeight: 500,
+  },
+  resumeItemDate: {
+    color: '#6b7280',
+    fontSize: '0.875rem',
+  },
+  resumeItemDescription: {
+    color: '#9ca3af',
+    fontSize: '0.875rem',
+    lineHeight: 1.6,
+    marginTop: '0.5rem',
+  },
+  skillsGrid: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '0.75rem',
+  },
+  skillTag: {
+    backgroundColor: 'rgba(234, 179, 8, 0.1)',
+    border: '1px solid rgba(234, 179, 8, 0.3)',
+    color: '#eab308',
+    padding: '0.5rem 1rem',
+    borderRadius: '0.5rem',
+    fontSize: '0.875rem',
+    fontWeight: 500,
+  },
+  projectLink: {
+    color: '#eab308',
+    textDecoration: 'none',
+    fontSize: '0.875rem',
+    marginLeft: '0.5rem',
+    transition: 'opacity 0.3s',
+  },
+  achievementBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    backgroundColor: 'rgba(234, 179, 8, 0.1)',
+    border: '1px solid rgba(234, 179, 8, 0.3)',
+    color: '#eab308',
+    padding: '0.5rem 1rem',
+    borderRadius: '0.5rem',
+    fontSize: '0.875rem',
+    fontWeight: 500,
+    marginRight: '0.75rem',
+    marginBottom: '0.75rem',
+  },
 };
 
 export default styles;
