@@ -1,20 +1,20 @@
 
-import styles from "../assets/css/styles";
+import '../assets/css/ProfileCard.css';
 import InfoItem from './InfoItem';
 import {Mail, Phone, Calendar, MapPin} from 'lucide-react'
 // import sam from '../assets/images/sam_nobg.png';
 
 const ProfileCard = () => {
   return (
-    <div style={styles.profileCard}>
-      <div style={styles.profileAvatar}>
-        <div style={styles.avatarEmoji}>👨‍💼</div>
+    <div className="profile-card">
+      <div className="profile-avatar">
+        <div className="avatar-emoji">👨‍💼</div>
       </div>
       
-      <h1 style={styles.profileName}>Samuel Katongole</h1>
-      <p style={styles.profileTitle}>Software Engineer | Team Lead | Writer | Educator</p>
+      <h1 className="profile-name">Samuel Katongole</h1>
+      <p className="profile-title">Software Engineer | Team Lead | Writer | Educator</p>
       
-      <div style={styles.profileInfo}>
+      <div className="profile-info">
         <InfoItem 
           icon={<Mail size={20} color="#eab308" />}
           label="EMAIL"

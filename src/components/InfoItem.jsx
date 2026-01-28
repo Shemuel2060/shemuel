@@ -1,14 +1,14 @@
 
 
-import styles from "../assets/css/styles";
+import '../assets/css/InfoItem.css';
 
 const InfoItem = ({ icon, label, value }) => {
   return (
-    <div style={styles.infoItem}>
-      <div style={styles.infoIcon}>{icon}</div>
-      <div style={styles.infoContent}>
-        <p style={styles.infoLabel}>{label}</p>
-        <p style={styles.infoValue}>{value}</p>
+    <div className="info-item">
+      <div className="info-icon">{icon}</div>
+      <div className="info-content">
+        <p className="info-label">{label}</p>
+        <p className="info-value">{value}</p>
       </div>
     </div>
   );

@@ -1,30 +1,42 @@
 
+import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import styles from "../assets/css/styles";
 
 const Navigation = () => {
-  const navItems = ['About', 'Resume', 'Portfolio', 'Blog', 'Contact'];
+  const location = useLocation();
+  const [hoveredItem, setHoveredItem] = useState(null);
   
-  const handleMouseEnter = (e) => {
-    e.target.style.color = '#eab308';
-  };
+  const navItems = [
+    { name: 'About', path: '/about' },
+    { name: 'Resume', path: '/resume' },
+    { name: 'Portfolio', path: '/portfolio' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Contact', path: '/contact' }
+  ];
   
-  const handleMouseLeave = (e) => {
-    e.target.style.color = '#9ca3af';
+  const getLinkStyle = (path) => {
+    const isActive = location.pathname === path;
+    const isHovered = hoveredItem === path;
+    return {
+      ...styles.navLink,
+      color: isActive || isHovered ? '#eab308' : '#9ca3af',
+    };
   };
   
   return (
     <nav style={styles.navigation}>
       <ul style={styles.navList}>
         {navItems.map((item) => (
-          <li key={item}>
-            <a 
-              href={`#${item.toLowerCase()}`} 
-              style={styles.navLink}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+          <li key={item.name}>
+            <Link 
+              to={item.path}
+              style={getLinkStyle(item.path)}
+              onMouseEnter={() => setHoveredItem(item.path)}
+              onMouseLeave={() => setHoveredItem(null)}
             >
-              {item}
-            </a>
+              {item.name}
+            </Link>
           </li>
         ))}
       </ul>

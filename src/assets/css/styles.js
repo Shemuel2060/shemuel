@@ -38,65 +38,6 @@ const styles = {
   sidebar: {
     width: '100%',
   },
-  profileCard: {
-    backgroundColor: '#18181b',
-    borderRadius: '1rem',
-    padding: '2rem',
-    textAlign: 'center',
-  },
-  profileAvatar: {
-    width: '8rem',
-    height: '8rem',
-    margin: '0 auto 1.5rem',
-    background: 'linear-gradient(to bottom right, #eab308, #f97316)',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarEmoji: {
-    fontSize: '4rem',
-  },
-  profileName: {
-    color: 'white',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    marginBottom: '0.5rem',
-  },
-  profileTitle: {
-    color: '#9ca3af',
-    fontSize: '0.875rem',
-    marginBottom: '2rem',
-  },
-  profileInfo: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem',
-    textAlign: 'left',
-  },
-  infoItem: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    gap: '1rem',
-    padding: '1rem',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    borderRadius: '0.5rem',
-  },
-  infoIcon: {
-    marginTop: '0.25rem',
-  },
-  infoContent: {
-    flex: 1,
-  },
-  infoLabel: {
-    color: '#6b7280',
-    fontSize: '0.75rem',
-    marginBottom: '0.25rem',
-  },
-  infoValue: {
-    color: '#d1d5db',
-    fontSize: '0.875rem',
-  },
   mainContent: {
     backgroundColor: '#18181b',
     borderRadius: '1rem',
