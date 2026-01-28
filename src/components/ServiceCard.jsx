@@ -10,13 +10,21 @@ const ServiceCard = ({ icon, title, description }) => {
     backgroundColor: isHovered ? '#27272a' : '#18181b',
   };
   
+  const iconStyle = {
+    ...styles.serviceIcon,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 'inherit',
+  };
+  
   return (
     <div 
       style={cardStyle}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div style={styles.serviceIcon}>{icon}</div>
+      <div style={iconStyle}>{icon}</div>
       <h3 style={styles.serviceTitle}>{title}</h3>
       <p style={styles.serviceDescription}>{description}</p>
     </div>
