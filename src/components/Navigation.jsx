@@ -1,17 +1,19 @@
 
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import styles from "../assets/css/styles";
+import { useThemeStyles } from '../hooks/useThemeStyles';
 
 const Navigation = () => {
   const location = useLocation();
   const [hoveredItem, setHoveredItem] = useState(null);
+  const styles = useThemeStyles();
   
   const navItems = [
     { name: 'About', path: '/about' },
     { name: 'Resume', path: '/resume' },
     { name: 'Portfolio', path: '/portfolio' },
     { name: 'Blog', path: '/blog' },
+    { name: 'Quotes', path: '/quotes' },
     { name: 'Contact', path: '/contact' }
   ];
   
@@ -20,7 +22,7 @@ const Navigation = () => {
     const isHovered = hoveredItem === path;
     return {
       ...styles.navLink,
-      color: isActive || isHovered ? '#eab308' : '#9ca3af',
+      color: isActive || isHovered ? '#eab308' : styles.navLink.color,
     };
   };
   

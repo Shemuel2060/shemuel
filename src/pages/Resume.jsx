@@ -1,8 +1,10 @@
-import styles from "../assets/css/styles";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 import ProfileCard from '../components/ProfileCard';
 import Resume from '../components/Resume';
 
 const ResumePage = () => {
+  const styles = useThemeStyles();
+  
   return (
     <div style={styles.app}>
       <div style={styles.container}>

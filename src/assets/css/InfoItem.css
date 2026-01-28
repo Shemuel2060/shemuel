@@ -10,10 +10,20 @@
   cursor: default;
 }
 
+[data-theme="light"] .info-item {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
 .info-item:hover {
   background-color: rgba(0, 0, 0, 0.5);
   border-color: rgba(234, 179, 8, 0.15);
   transform: translateX(4px);
+}
+
+[data-theme="light"] .info-item:hover {
+  background-color: #f3f4f6;
+  border-color: rgba(234, 179, 8, 0.3);
 }
 
 .info-icon {
@@ -38,6 +48,7 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .info-value {
@@ -46,4 +57,9 @@
   font-weight: 400;
   line-height: 1.5;
   word-break: break-word;
+  transition: color 0.3s ease;
+}
+
+[data-theme="light"] .info-value {
+  color: #111827;
 }

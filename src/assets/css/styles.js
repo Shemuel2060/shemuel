@@ -151,6 +151,15 @@ const styles = {
     marginLeft: '0.5rem',
     transition: 'opacity 0.3s',
   },
+  projectImage: {
+    width: '100%',
+    maxWidth: '600px',
+    height: 'auto',
+    borderRadius: '0.75rem',
+    marginBottom: '1rem',
+    border: '1px solid rgba(234, 179, 8, 0.2)',
+    objectFit: 'cover',
+  },
   achievementBadge: {
     display: 'inline-flex',
     alignItems: 'center',

@@ -1,8 +1,8 @@
 
-import styles from "../assets/css/styles";
-import { Github } from 'lucide-react';
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 const Resume = () => {
+  const styles = useThemeStyles();
   const experiences = [
     {
       title: "Software Engineer",
@@ -29,40 +29,80 @@ const Resume = () => {
 
   const skills = [
     "Java", "JavaFX", "Spring Boot", "JavaScript", "React", 
-    "Machine Learning", "Python", "HTML/CSS", "Git", "Eclipse IDE",
+    "Docker", "Python", "HTML/CSS", "Git", "PHP", "Laravel",
     "Problem Solving", "Team Leadership", "Mentoring"
   ];
 
   const projects = [
     {
-      name: "WellFunctionalityTZ",
-      description: "Classification model to predict which wells in Tanzania are functional and which are not. Machine learning project addressing real-world infrastructure challenges.",
-      link: "https://github.com/Shemuel2060/WellFunctionalityTZ",
-      tech: ["Machine Learning", "Python", "Classification"]
+      name: "YDMS",
+      description: "A desktop system that helps manage members in groups like churches, saccoes, etc.",
+      image: "/images/ydms.png",
+      tech: ["Java", "JavaFX", "Desktop Application"]
     },
     {
-      name: "CS1102-programs",
-      description: "Collection of class files and programs built through coursework, demonstrating programming fundamentals and best practices.",
-      link: "https://github.com/Shemuel2060/CS1102-programs",
-      tech: ["Java", "Programming Fundamentals"]
+      name: "CSVM",
+      description: "A client system for managing data of clients for City Sites Ltd, a Ugandan Real-Estates company.",
+      image: "/images/csvm.png",
+      tech: ["Java", "JavaFX", "Client Management"]
     },
     {
-      name: "LAB8_-Debugging",
-      description: "Educational project demonstrating debugging features and techniques in Eclipse IDE.",
-      link: "https://github.com/Shemuel2060/LAB8_-Debugging",
-      tech: ["Java", "Eclipse IDE", "Debugging"]
+      name: "k2r_Metablic",
+      description: "A system for ordering online lab tests, getting them approved by specialists, and getting suggestions and recommendations.",
+      image: "/images/k2r_metablic.png",
+      tech: ["Web Application", "Lab Management"]
     },
     {
-      name: "BMI Calculator",
-      description: "Practice project building a BMI calculator application using JavaScript.",
-      link: "https://github.com/Shemuel2060/bmi_calculator",
-      tech: ["JavaScript", "Web Development"]
+      name: "scholaria",
+      description: "A personal project for online class creation and running along with topic and room specific group discussions.",
+      image: "/images/scholaria.png",
+      tech: ["Web Application", "E-Learning"]
     },
     {
-      name: "CV",
-      description: "Personal CV website built with HTML, showcasing web development skills.",
-      link: "https://github.com/Shemuel2060/CV",
-      tech: ["HTML", "Web Development"]
+      name: "LICW",
+      description: "A book exploring several scenarios in the Bible where Christ talks about the moral law.",
+      image: "/images/licw.png",
+      tech: ["Writing", "Theology"]
+    }
+  ];
+
+  const projectsToWorkOn = [
+    {
+      name: "rabita",
+      description: "Webapp project in development.",
+      image: "/images/rabita.png",
+      tech: ["Webapp"]
+    },
+    {
+      name: "NAC system",
+      description: "Webapp project in development.",
+      image: "/images/nac_system.png",
+      tech: ["Webapp"]
+    },
+    {
+      name: "SharePoint",
+      description: "Webapp project in development.",
+      image: "/images/sharepoint.png",
+      tech: ["Webapp"]
+    },
+    {
+      name: "LHTL",
+      description: "Book on learning, currently in development.",
+      image: "/images/lhtl.png",
+      tech: ["Writing", "Education"]
+    }
+  ];
+
+  const volunteering = [
+    {
+      title: "Teaching English to Sudanese Refugees",
+      description: "Teaching English to Sudanese refugees living in Uganda, helping them integrate and communicate effectively.",
+      location: "Uganda"
+    },
+    {
+      title: "Teaching Computer Applications",
+      description: "Teaching Computer Application skills to Ugandans, empowering them with digital literacy and technical knowledge.",
+      location: "Uganda"
     }
   ];
 
@@ -112,21 +152,19 @@ const Resume = () => {
           <h3 style={{...styles.sectionTitle, fontSize: '1.5rem', marginBottom: '1rem'}}>Projects</h3>
           {projects.map((project, index) => (
             <div key={index} style={styles.resumeItem}>
+              {project.image && (
+                <img 
+                  src={project.image} 
+                  alt={project.name}
+                  style={styles.projectImage}
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                  }}
+                />
+              )}
               <div style={styles.resumeItemHeader}>
                 <div style={{ flex: 1 }}>
-                  <h4 style={styles.resumeItemTitle}>
-                    {project.name}
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      style={styles.projectLink}
-                      onMouseEnter={(e) => e.target.style.opacity = '0.7'}
-                      onMouseLeave={(e) => e.target.style.opacity = '1'}
-                    >
-                      <Github size={16} style={{ display: 'inline', verticalAlign: 'middle', marginLeft: '0.25rem' }} />
-                    </a>
-                  </h4>
+                  <h4 style={styles.resumeItemTitle}>{project.name}</h4>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
                     {project.tech.map((tech, techIndex) => (
                       <span key={techIndex} style={{...styles.skillTag, fontSize: '0.75rem', padding: '0.25rem 0.75rem'}}>
@@ -137,6 +175,54 @@ const Resume = () => {
                 </div>
               </div>
               <p style={styles.resumeItemDescription}>{project.description}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Projects to Work On Section */}
+        <div>
+          <h3 style={{...styles.sectionTitle, fontSize: '1.5rem', marginBottom: '1rem'}}>Projects to Work On</h3>
+          {projectsToWorkOn.map((project, index) => (
+            <div key={index} style={styles.resumeItem}>
+              {project.image && (
+                <img 
+                  src={project.image} 
+                  alt={project.name}
+                  style={styles.projectImage}
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                  }}
+                />
+              )}
+              <div style={styles.resumeItemHeader}>
+                <div style={{ flex: 1 }}>
+                  <h4 style={styles.resumeItemTitle}>{project.name}</h4>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
+                    {project.tech.map((tech, techIndex) => (
+                      <span key={techIndex} style={{...styles.skillTag, fontSize: '0.75rem', padding: '0.25rem 0.75rem'}}>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <p style={styles.resumeItemDescription}>{project.description}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Volunteering Section */}
+        <div>
+          <h3 style={{...styles.sectionTitle, fontSize: '1.5rem', marginBottom: '1rem'}}>Volunteering</h3>
+          {volunteering.map((volunteer, index) => (
+            <div key={index} style={styles.resumeItem}>
+              <div style={styles.resumeItemHeader}>
+                <div>
+                  <h4 style={styles.resumeItemTitle}>{volunteer.title}</h4>
+                  <p style={styles.resumeItemSubtitle}>{volunteer.location}</p>
+                </div>
+              </div>
+              <p style={styles.resumeItemDescription}>{volunteer.description}</p>
             </div>
           ))}
         </div>

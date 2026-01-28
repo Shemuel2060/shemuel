@@ -1,28 +1,35 @@
 
-import styles from "../assets/css/styles";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 import ServiceCard from './ServiceCard';
+import { Code, BookOpen, Coffee, Users, GraduationCap } from 'lucide-react';
 
 const ServicesSection = () => {
+  const styles = useThemeStyles();
   const services = [
     {
-      icon: '🎨',
-      title: 'Web Design',
-      description: 'The most modern and high-quality design made at a professional level.'
+      icon: <Code size={40} color="#eab308" strokeWidth={1.5} />,
+      title: 'Website Development',
+      description: 'Building modern, responsive web applications using React, JavaScript, PHP, and Laravel. Creating high-quality, professional websites and web systems.'
     },
     {
-      icon: '💻',
-      title: 'Web Development',
-      description: 'High-quality development of sites at the professional level.'
+      icon: <Coffee size={40} color="#eab308" strokeWidth={1.5} />,
+      title: 'Java Development',
+      description: 'Specializing in Java ecosystem development with JavaFX and Spring Boot. Building desktop applications and enterprise solutions.'
     },
     {
-      icon: '📱',
-      title: 'Mobile Apps',
-      description: 'Professional development of applications for iOS and Android.'
+      icon: <BookOpen size={40} color="#eab308" strokeWidth={1.5} />,
+      title: 'Writing',
+      description: 'Authoring books and educational content. Exploring theological and educational topics through written works.'
     },
     {
-      icon: '📷',
-      title: 'Photography',
-      description: 'I make high-quality photos of any category at a professional level.'
+      icon: <Users size={40} color="#eab308" strokeWidth={1.5} />,
+      title: 'Team Leadership',
+      description: 'Leading development teams, mentoring engineers, and fostering collaborative environments to deliver exceptional software solutions.'
+    },
+    {
+      icon: <GraduationCap size={40} color="#eab308" strokeWidth={1.5} />,
+      title: 'Education & Mentoring',
+      description: 'Teaching and empowering others through technology education, including training refugees and underrepresented communities.'
     }
   ];
 

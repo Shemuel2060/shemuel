@@ -1,8 +1,11 @@
-import styles from "../assets/css/styles";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 import ProfileCard from '../components/ProfileCard';
 import AboutSection from '../components/AboutSection';
+import ServicesSection from '../components/ServicesSection';
 
 const About = () => {
+  const styles = useThemeStyles();
+  
   return (
     <div style={styles.app}>
       <div style={styles.container}>
@@ -12,6 +15,7 @@ const About = () => {
         
         <main style={styles.mainContent}>
           <AboutSection />
+          <ServicesSection />
         </main>
       </div>
     </div>

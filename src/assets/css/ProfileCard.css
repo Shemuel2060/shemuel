@@ -5,14 +5,24 @@
   text-align: center;
   border: 1px solid rgba(234, 179, 8, 0.1);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(234, 179, 8, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+}
+
+[data-theme="light"] .profile-card {
+  background-color: #ffffff;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(234, 179, 8, 0.1);
+  border: 1px solid #e5e7eb;
 }
 
 .profile-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(234, 179, 8, 0.1);
+}
+
+[data-theme="light"] .profile-card:hover {
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(234, 179, 8, 0.2);
 }
 
 .profile-avatar {
@@ -44,6 +54,14 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .profile-name {
+  background: linear-gradient(135deg, #111827 0%, #374151 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .profile-title {
@@ -53,6 +71,11 @@
   font-weight: 400;
   letter-spacing: 0.02em;
   line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+[data-theme="light"] .profile-title {
+  color: #6b7280;
 }
 
 .profile-info {

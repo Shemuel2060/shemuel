@@ -1,7 +1,9 @@
 
-import styles from "../assets/css/styles";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 const AboutSection = () => {
+  const styles = useThemeStyles();
+  
   return (
     <section style={styles.section}>
       <h2 style={styles.sectionTitle}>About Me</h2>
