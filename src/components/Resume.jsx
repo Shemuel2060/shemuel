@@ -1,5 +1,5 @@
-
 import { useThemeStyles } from "../hooks/useThemeStyles";
+import ProjectsCard from "./ProjectsCard";
 
 const Resume = () => {
   const styles = useThemeStyles();
@@ -33,7 +33,7 @@ const Resume = () => {
     "Problem Solving", "Team Leadership", "Mentoring"
   ];
 
-  const projects = [
+  const completedProjects = [
     {
       name: "YDMS",
       description: "A desktop system that helps manage members in groups like churches, saccos, etc.",
@@ -45,18 +45,22 @@ const Resume = () => {
       description: "A client system for managing data of clients for City Sites Ltd, a Ugandan Real-Estates company.",
       image: "/images/csvm.png",
       tech: ["Java", "JavaFX", "Client Management"]
-    },
+    }
+  ];
+
+  const projects = [
     {
       name: "k2r_Metablic",
       description: "A system for ordering online lab tests, getting them approved by specialists, and getting suggestions and recommendations.",
       image: "/images/k2r_metablic.png",
       tech: ["Web Application", "Lab Management"]
     },
+    
     {
-      name: "scholaria",
-      description: "A personal project for online class creation and running along with topic and room specific group discussions.",
-      image: "/images/scholaria.png",
-      tech: ["Web Application", "E-Learning"]
+      name: "NAC system",
+      description: "An online learning platform for Network for Active Citizens on local governance and national budget.",
+      image: "/images/nac_system.png",
+      tech: ["Webapp"]
     },
     {
       name: "LICW",
@@ -69,21 +73,21 @@ const Resume = () => {
   const projectsToWorkOn = [
     {
       name: "rabita",
-      description: "Webapp project in development.",
+      description: "Webapp project.",
       image: "/images/rabita.png",
       tech: ["Webapp"]
     },
     {
-      name: "NAC system",
-      description: "Webapp project in development.",
-      image: "/images/nac_system.png",
+      name: "SharePoint",
+      description: "Webapp project.",
+      image: "/images/sharepoint.png",
       tech: ["Webapp"]
     },
     {
-      name: "SharePoint",
-      description: "Webapp project in development.",
-      image: "/images/sharepoint.png",
-      tech: ["Webapp"]
+      name: "scholaria",
+      description: "A Web project.",
+      image: "/images/scholaria.png",
+      tech: ["Web Application", "E-Learning"]
     },
     {
       name: "LHTL",
@@ -147,35 +151,19 @@ const Resume = () => {
           </div>
         </div>
 
-        {/* Projects Section */}
+        {/* Completed Projects Section */}
         <div>
-          <h3 style={{...styles.sectionTitle, fontSize: '1.5rem', marginBottom: '1rem'}}>Projects</h3>
+          <h3 style={{...styles.sectionTitle, fontSize: '1.5rem', marginBottom: '1rem'}}>Completed Projects</h3>
+          {completedProjects.map((project, index) => (
+            <ProjectsCard key={index} project={project} styles={styles} />
+          ))}
+        </div>
+
+        {/* Ongoing Projects Section */}
+        <div>
+          <h3 style={{...styles.sectionTitle, fontSize: '1.5rem', marginBottom: '1rem'}}>Ongoing Projects</h3>
           {projects.map((project, index) => (
-            <div key={index} style={styles.resumeItem}>
-              {project.image && (
-                <img 
-                  src={project.image} 
-                  alt={project.name}
-                  style={styles.projectImage}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                  }}
-                />
-              )}
-              <div style={styles.resumeItemHeader}>
-                <div style={{ flex: 1 }}>
-                  <h4 style={styles.resumeItemTitle}>{project.name}</h4>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
-                    {project.tech.map((tech, techIndex) => (
-                      <span key={techIndex} style={{...styles.skillTag, fontSize: '0.75rem', padding: '0.25rem 0.75rem'}}>
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <p style={styles.resumeItemDescription}>{project.description}</p>
-            </div>
+            <ProjectsCard key={index} project={project} styles={styles} />
           ))}
         </div>
 
@@ -183,31 +171,7 @@ const Resume = () => {
         <div>
           <h3 style={{...styles.sectionTitle, fontSize: '1.5rem', marginBottom: '1rem'}}>Projects to Work On</h3>
           {projectsToWorkOn.map((project, index) => (
-            <div key={index} style={styles.resumeItem}>
-              {project.image && (
-                <img 
-                  src={project.image} 
-                  alt={project.name}
-                  style={styles.projectImage}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                  }}
-                />
-              )}
-              <div style={styles.resumeItemHeader}>
-                <div style={{ flex: 1 }}>
-                  <h4 style={styles.resumeItemTitle}>{project.name}</h4>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
-                    {project.tech.map((tech, techIndex) => (
-                      <span key={techIndex} style={{...styles.skillTag, fontSize: '0.75rem', padding: '0.25rem 0.75rem'}}>
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <p style={styles.resumeItemDescription}>{project.description}</p>
-            </div>
+            <ProjectsCard key={index} project={project} styles={styles} />
           ))}
         </div>
 

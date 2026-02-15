@@ -1,7 +1,7 @@
 
 import '../assets/css/ProfileCard.css';
 import InfoItem from './InfoItem';
-import {Mail, Phone, Calendar, MapPin} from 'lucide-react'
+import {Mail, Phone, Calendar, MapPin, Briefcase} from 'lucide-react'
 // import sam from '../assets/images/sam_nobg.png';
 
 const ProfileCard = () => {
@@ -26,7 +26,7 @@ const ProfileCard = () => {
           value="(+256)767 896 608"
         />
          <InfoItem 
-          icon={<Phone size={20} color="#eab308" />}
+          icon={<Briefcase size={20} color="#eab308" />}
           label="WORKING WITH"
           value="iONA Tech Services, Ltd."
         />
