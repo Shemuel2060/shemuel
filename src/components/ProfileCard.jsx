@@ -25,6 +25,11 @@ const ProfileCard = () => {
           label="PHONE"
           value="(+256)767 896 608"
         />
+         <InfoItem 
+          icon={<Phone size={20} color="#eab308" />}
+          label="WORKING WITH"
+          value="iONA Tech Services, Ltd."
+        />
         <InfoItem 
           icon={<Calendar size={20} color="#eab308" />}
           label="SINCE"

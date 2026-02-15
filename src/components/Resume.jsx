@@ -36,7 +36,7 @@ const Resume = () => {
   const projects = [
     {
       name: "YDMS",
-      description: "A desktop system that helps manage members in groups like churches, saccoes, etc.",
+      description: "A desktop system that helps manage members in groups like churches, saccos, etc.",
       image: "/images/ydms.png",
       tech: ["Java", "JavaFX", "Desktop Application"]
     },
@@ -244,9 +244,11 @@ const Resume = () => {
         <div>
           <h3 style={{...styles.sectionTitle, fontSize: '1.5rem', marginBottom: '1rem'}}>Interests</h3>
           <p style={styles.resumeItemDescription}>
-            Passionate about Machine Learning and AI. Currently learning programming and looking to collaborate 
-            on projects within the world of ML and AI. Committed to continuous growth and solving problems that 
-            address unique challenges across the African continent.
+            I am passionate about programming and software architecture, with a strong
+            focus on domain-driven design, security systems, and solving complex problems 
+            through clean, structured solutions; I also enjoy research, technical writing, 
+            teaching, and continuous learning, including language study and thoughtful 
+            textual analysis.
           </p>
         </div>
       </div>
