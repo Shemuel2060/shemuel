@@ -7,7 +7,7 @@ const Portfolio = () => {
   const projects = [
     {
       name: "YDMS",
-      description: "A desktop system that helps manage members in groups like churches, saccoes, etc.",
+      description: "A desktop system that helps manage members in groups like churches, saccos, etc.",
       image: "/images/ydms.png",
       tech: ["Java", "JavaFX", "Desktop Application"],
       category: "Desktop Application"
