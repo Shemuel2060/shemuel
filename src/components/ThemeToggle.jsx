@@ -1,48 +1,30 @@
 import { useTheme } from '../contexts/ThemeContext';
 import { Sun, Moon } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <button
+    <motion.button
       onClick={toggleTheme}
-      style={{
-        position: 'fixed',
-        bottom: '2rem',
-        right: '2rem',
-        width: '3.5rem',
-        height: '3.5rem',
-        borderRadius: '50%',
-        backgroundColor: theme === 'dark' ? '#18181b' : '#f3f4f6',
-        border: `2px solid ${theme === 'dark' ? '#eab308' : '#eab308'}`,
-        color: theme === 'dark' ? '#eab308' : '#000',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        cursor: 'pointer',
-        transition: 'all 0.3s ease',
-        boxShadow: theme === 'dark' 
-          ? '0 4px 15px rgba(234, 179, 8, 0.3)' 
-          : '0 4px 15px rgba(0, 0, 0, 0.1)',
-        zIndex: 1000,
-      }}
-      onMouseEnter={(e) => {
-        e.target.style.transform = 'scale(1.1)';
-        e.target.style.boxShadow = theme === 'dark'
-          ? '0 6px 20px rgba(234, 179, 8, 0.5)'
-          : '0 6px 20px rgba(0, 0, 0, 0.2)';
-      }}
-      onMouseLeave={(e) => {
-        e.target.style.transform = 'scale(1)';
-        e.target.style.boxShadow = theme === 'dark'
-          ? '0 4px 15px rgba(234, 179, 8, 0.3)'
-          : '0 4px 15px rgba(0, 0, 0, 0.1)';
-      }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      className={`fixed bottom-[5.5rem] right-8 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center cursor-pointer transition-colors z-[1000] border-2 border-yellow-500 shadow-lg hover:shadow-xl ${
+        theme === 'dark' 
+          ? 'bg-zinc-900 text-yellow-500 shadow-yellow-500/30 hover:shadow-yellow-500/50' 
+          : 'bg-gray-100 text-black shadow-black/10 hover:shadow-black/20'
+      }`}
       aria-label="Toggle theme"
     >
-      {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
-    </button>
+      <motion.div
+        initial={false}
+        animate={{ rotate: theme === 'dark' ? 0 : 180 }}
+        transition={{ duration: 0.3, ease: 'backOut' }}
+      >
+        {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
+      </motion.div>
+    </motion.button>
   );
 };
 

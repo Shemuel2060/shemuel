@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { useThemeStyles } from "../hooks/useThemeStyles";
 import ProfileCard from '../components/ProfileCard';
 import { Quote } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Quotes = () => {
-  const styles = useThemeStyles();
   const quotes = [
     {
       id: 1,
@@ -59,136 +58,78 @@ const Quotes = () => {
   ];
 
   const [selectedCategory, setSelectedCategory] = useState('all');
-
   const categories = ['all', 'Software', 'Education', 'Spiritual', 'Writing', 'Leadership'];
 
   const filteredQuotes = selectedCategory === 'all'
     ? quotes
     : quotes.filter(quote => quote.category === selectedCategory);
 
-  const quoteCardStyle = {
-    backgroundColor: '#18181b',
-    border: '1px solid #27272a',
-    borderRadius: '0.75rem',
-    padding: '2rem',
-    position: 'relative',
-    transition: 'all 0.3s ease',
-  };
-
-  const quoteCardHoverStyle = {
-    ...quoteCardStyle,
-    transform: 'translateY(-4px)',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
-    borderColor: 'rgba(234, 179, 8, 0.3)',
-  };
-
   const QuoteCard = ({ quote }) => {
-    const [isHovered, setIsHovered] = useState(false);
-
     return (
-      <div
-        style={isHovered ? quoteCardHoverStyle : quoteCardStyle}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+      <motion.div
+        whileHover={{ y: -5 }}
+        className="bg-gray-50 dark:bg-zinc-900/50 rounded-2xl overflow-hidden border border-gray-100 dark:border-zinc-800 transition-all duration-300 hover:shadow-xl dark:hover:shadow-yellow-500/10 p-8 relative flex flex-col h-full group"
       >
-        <div style={{
-          position: 'absolute',
-          top: '1rem',
-          left: '1rem',
-          color: '#eab308',
-          opacity: 0.3,
-        }}>
-          <Quote size={40} />
+        <div className="absolute top-4 left-4 text-yellow-500 opacity-20 dark:opacity-10 group-hover:opacity-30 transition-opacity duration-300">
+          <Quote size={48} />
         </div>
-        <p style={{
-          color: '#f3f4f6',
-          fontSize: '1.125rem',
-          lineHeight: 1.8,
-          fontStyle: 'italic',
-          marginBottom: '1rem',
-          paddingLeft: '2rem',
-        }}>
+        <p className="text-gray-800 dark:text-gray-200 text-lg md:text-xl leading-relaxed italic mb-6 pl-6 flex-grow font-medium relative z-10">
           "{quote.text}"
         </p>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          gap: '0.5rem',
-        }}>
-          <span style={{
-            color: '#eab308',
-            fontSize: '0.875rem',
-            fontWeight: 500,
-            padding: '0.25rem 0.75rem',
-            backgroundColor: 'rgba(234, 179, 8, 0.1)',
-            border: '1px solid rgba(234, 179, 8, 0.3)',
-            borderRadius: '0.5rem',
-          }}>
+        <div className="flex justify-end items-center gap-2 mt-auto relative z-10">
+          <span className="text-yellow-700 dark:text-yellow-400 bg-yellow-100/50 dark:bg-yellow-900/30 border border-yellow-200/50 dark:border-yellow-700/30 px-3 py-1 rounded-lg text-xs font-bold tracking-wide">
             {quote.category}
           </span>
         </div>
-      </div>
+      </motion.div>
     );
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.95, y: 10 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.4 } }
+  };
+
   return (
-    <div style={styles.app}>
-      <div style={styles.container}>
-        <aside style={styles.sidebar}>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-7xl mx-auto pt-32 pb-24 px-6 md:px-12 min-h-screen"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <aside className="lg:col-span-4 self-start sticky top-32">
           <ProfileCard />
         </aside>
         
-        <main style={styles.mainContent}>
-          <section style={styles.section}>
-            <h2 style={styles.sectionTitle}>Quotes</h2>
-            <div style={styles.titleUnderline}></div>
-            <p style={{
-              color: '#9ca3af',
-              fontSize: '1rem',
-              lineHeight: 1.75,
-              marginBottom: '2rem',
-            }}>
+        <main className="lg:col-span-8 bg-white dark:bg-[#18181b] rounded-3xl p-8 shadow-xl dark:shadow-none border border-gray-100 dark:border-gray-800">
+          <section className="mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Quotes</h2>
+            <div className="w-16 h-1.5 bg-yellow-500 rounded-full mb-8"></div>
+            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-10">
               Personal reflections and insights on software development, education, writing, leadership, and faith.
             </p>
 
             {/* Category Filter */}
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '1rem',
-              marginBottom: '3rem',
-              paddingBottom: '1.5rem',
-              borderBottom: '1px solid #27272a',
-            }}>
+            <div className="flex flex-wrap gap-3 mb-12 pb-8 border-b border-gray-100 dark:border-zinc-800/50">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  style={{
-                    padding: '0.75rem 1.5rem',
-                    backgroundColor: selectedCategory === category ? '#eab308' : 'transparent',
-                    border: `1px solid ${selectedCategory === category ? '#eab308' : '#27272a'}`,
-                    borderRadius: '0.5rem',
-                    color: selectedCategory === category ? '#000' : '#9ca3af',
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    textTransform: 'capitalize',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (selectedCategory !== category) {
-                      e.target.style.borderColor = '#eab308';
-                      e.target.style.color = '#eab308';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (selectedCategory !== category) {
-                      e.target.style.borderColor = '#27272a';
-                      e.target.style.color = '#9ca3af';
-                    }
-                  }}
+                  className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 capitalize ${
+                    selectedCategory === category 
+                      ? 'bg-yellow-500 text-black shadow-md shadow-yellow-500/20 transform -translate-y-0.5' 
+                      : 'bg-gray-50 dark:bg-zinc-900/50 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-zinc-800 hover:border-yellow-500/50 hover:text-yellow-600 dark:hover:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/10'
+                  }`}
                 >
                   {category}
                 </button>
@@ -196,30 +137,29 @@ const Quotes = () => {
             </div>
 
             {/* Quotes Grid */}
-            {filteredQuotes.length > 0 ? (
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-                gap: '2rem',
-              }}>
-                {filteredQuotes.map((quote) => (
-                  <QuoteCard key={quote.id} quote={quote} />
-                ))}
-              </div>
-            ) : (
-              <p style={{
-                color: '#9ca3af',
-                fontSize: '1rem',
-                textAlign: 'center',
-                padding: '3rem',
-              }}>
-                No quotes found in this category.
-              </p>
-            )}
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              key={selectedCategory} // Re-trigger animation on category change
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            >
+              {filteredQuotes.length > 0 ? (
+                filteredQuotes.map((quote) => (
+                  <motion.div key={quote.id} variants={itemVariants} className="h-full">
+                    <QuoteCard quote={quote} />
+                  </motion.div>
+                ))
+              ) : (
+                <motion.div variants={itemVariants} className="col-span-full py-16 text-center">
+                  <p className="text-gray-500 dark:text-gray-400 text-lg">No quotes found in this category.</p>
+                </motion.div>
+              )}
+            </motion.div>
           </section>
         </main>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

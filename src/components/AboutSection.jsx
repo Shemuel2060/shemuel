@@ -1,15 +1,25 @@
-
-import { useThemeStyles } from "../hooks/useThemeStyles";
+import { motion } from 'framer-motion';
 
 const AboutSection = () => {
-  const styles = useThemeStyles();
-  
   return (
-    <section style={styles.section}>
-      <h2 style={styles.sectionTitle}>About Me</h2>
-      <div style={styles.titleUnderline}></div>
+    <section className="mb-12">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">About Me</h2>
+        <div className="w-16 h-1.5 bg-yellow-500 rounded-full mb-8"></div>
+      </motion.div>
       
-      <div style={styles.aboutContent}>
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="flex flex-col gap-6 text-gray-600 dark:text-gray-400 leading-relaxed text-lg"
+      >
         <p>
           I am a self-driven software engineer specializing in the Java ecosystem, 
           with expertise in JavaFX and Spring Boot. Based in Kampala, Uganda, I thrive 
@@ -26,7 +36,7 @@ const AboutSection = () => {
           context—specifically by developing innovative solutions that address the 
           unique challenges and opportunities across the African continent.
         </p>
-      </div>
+      </motion.div>
     </section>
   );
 };

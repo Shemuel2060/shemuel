@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { useThemeStyles } from "../hooks/useThemeStyles";
 import ProfileCard from '../components/ProfileCard';
 import { BookOpen, Code, GraduationCap, Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Blog = () => {
-  const styles = useThemeStyles();
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = [
@@ -94,179 +93,109 @@ const Blog = () => {
     ? blogs 
     : blogs.filter(blog => blog.category === selectedCategory);
 
-  const getCategoryColor = (category) => {
-    const colors = {
-      software: '#eab308',
-      writing: '#3b82f6',
-      education: '#10b981',
-      spiritual: '#f43f5e',
+  const getCategoryTheme = (category) => {
+    const themes = {
+      software: 'bg-yellow-500 text-black',
+      writing: 'bg-blue-500 text-white',
+      education: 'bg-emerald-500 text-white',
+      spiritual: 'bg-rose-500 text-white',
     };
-    return colors[category] || '#9ca3af';
+    return themes[category] || 'bg-gray-500 text-white';
   };
 
   const getCategoryIcon = (category) => {
     const icons = {
-      software: <Code size={20} />,
-      writing: <BookOpen size={20} />,
-      education: <GraduationCap size={20} />,
-      spiritual: <Heart size={20} />,
+      software: <Code size={16} />,
+      writing: <BookOpen size={16} />,
+      education: <GraduationCap size={16} />,
+      spiritual: <Heart size={16} />,
     };
     return icons[category] || null;
   };
 
-  const blogCardStyle = {
-    backgroundColor: '#18181b',
-    border: '1px solid #27272a',
-    borderRadius: '0.75rem',
-    overflow: 'hidden',
-    transition: 'all 0.3s ease',
-    cursor: 'pointer',
-  };
-
-  const blogCardHoverStyle = {
-    ...blogCardStyle,
-    transform: 'translateY(-4px)',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
-    borderColor: 'rgba(234, 179, 8, 0.3)',
-  };
-
   const BlogCard = ({ blog }) => {
-    const [isHovered, setIsHovered] = useState(false);
-    const categoryColor = getCategoryColor(blog.category);
-
     return (
-      <div
-        style={isHovered ? blogCardHoverStyle : blogCardStyle}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+      <motion.div
+        whileHover={{ y: -5 }}
+        className="bg-gray-50 dark:bg-zinc-900/50 rounded-2xl overflow-hidden border border-gray-100 dark:border-zinc-800 transition-all duration-300 hover:shadow-xl dark:hover:shadow-yellow-500/10 group cursor-pointer flex flex-col h-full"
       >
-        {blog.image && (
-          <div style={{ position: 'relative', width: '100%', height: '200px', overflow: 'hidden' }}>
-            <img
-              src={blog.image}
-              alt={blog.title}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                transition: 'transform 0.3s ease',
-                transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-              }}
-              onError={(e) => {
-                e.target.style.display = 'none';
-              }}
-            />
-            <div style={{
-              position: 'absolute',
-              top: '0.75rem',
-              left: '0.75rem',
-              backgroundColor: categoryColor,
-              color: '#000',
-              padding: '0.5rem 1rem',
-              borderRadius: '0.5rem',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-            }}>
-              {getCategoryIcon(blog.category)}
-              <span style={{ textTransform: 'capitalize' }}>{blog.category}</span>
-            </div>
+        <div className="relative w-full h-48 md:h-56 overflow-hidden bg-gray-200 dark:bg-zinc-800">
+          <img
+            src={blog.image}
+            alt={blog.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={(e) => {
+              // Fallback gradient if image fails to load
+              e.target.style.display = 'none';
+              e.target.parentElement.classList.add('bg-gradient-to-br', 'from-gray-700', 'to-zinc-900');
+            }}
+          />
+          <div className={`absolute top-3 left-3 px-3 py-1.5 rounded-lg text-xs font-bold shadow-sm backdrop-blur-sm flex items-center gap-1.5 ${getCategoryTheme(blog.category)}`}>
+            {getCategoryIcon(blog.category)}
+            <span className="capitalize">{blog.category}</span>
           </div>
-        )}
-        <div style={{ padding: '1.5rem' }}>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '0.75rem',
-            fontSize: '0.75rem',
-            color: '#6b7280',
-          }}>
-            <span>{new Date(blog.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+        </div>
+        <div className="p-6 flex flex-col flex-grow bg-white dark:bg-transparent">
+          <div className="flex justify-between items-center mb-4 text-xs font-medium text-gray-500 dark:text-gray-400">
+            <span>{new Date(blog.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
             <span>{blog.readTime}</span>
           </div>
-          <h3 style={{
-            color: 'white',
-            fontSize: '1.25rem',
-            fontWeight: 600,
-            marginBottom: '0.75rem',
-            lineHeight: 1.4,
-          }}>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors leading-snug">
             {blog.title}
           </h3>
-          <p style={{
-            color: '#9ca3af',
-            fontSize: '0.875rem',
-            lineHeight: 1.6,
-          }}>
+          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4 flex-grow">
             {blog.excerpt}
           </p>
         </div>
-      </div>
+      </motion.div>
     );
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
   return (
-    <div style={styles.app}>
-      <div style={styles.container}>
-        <aside style={styles.sidebar}>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-7xl mx-auto pt-32 pb-24 px-6 md:px-12 min-h-screen"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <aside className="lg:col-span-4 self-start sticky top-32">
           <ProfileCard />
         </aside>
         
-        <main style={styles.mainContent}>
-          <section style={styles.section}>
-            <h2 style={styles.sectionTitle}>Blog</h2>
-            <div style={styles.titleUnderline}></div>
-            <p style={{
-              color: '#9ca3af',
-              fontSize: '1rem',
-              lineHeight: 1.75,
-              marginBottom: '2rem',
-            }}>
+        <main className="lg:col-span-8 bg-white dark:bg-[#18181b] rounded-3xl p-8 shadow-xl dark:shadow-none border border-gray-100 dark:border-gray-800">
+          <section className="mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Blog</h2>
+            <div className="w-16 h-1.5 bg-yellow-500 rounded-full mb-8"></div>
+            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-10">
               Thoughts, insights, and experiences on software development, writing, education, and faith.
             </p>
 
             {/* Category Filter */}
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '1rem',
-              marginBottom: '3rem',
-              paddingBottom: '1.5rem',
-              borderBottom: '1px solid #27272a',
-            }}>
+            <div className="flex flex-wrap gap-3 mb-12 pb-8 border-b border-gray-100 dark:border-zinc-800/50">
               {categories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    padding: '0.75rem 1.5rem',
-                    backgroundColor: selectedCategory === category.id ? '#eab308' : 'transparent',
-                    border: `1px solid ${selectedCategory === category.id ? '#eab308' : '#27272a'}`,
-                    borderRadius: '0.5rem',
-                    color: selectedCategory === category.id ? '#000' : '#9ca3af',
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (selectedCategory !== category.id) {
-                      e.target.style.borderColor = '#eab308';
-                      e.target.style.color = '#eab308';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (selectedCategory !== category.id) {
-                      e.target.style.borderColor = '#27272a';
-                      e.target.style.color = '#9ca3af';
-                    }
-                  }}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                    selectedCategory === category.id 
+                      ? 'bg-yellow-500 text-black shadow-md shadow-yellow-500/20 transform -translate-y-0.5' 
+                      : 'bg-gray-50 dark:bg-zinc-900/50 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-zinc-800 hover:border-yellow-500/50 hover:text-yellow-600 dark:hover:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/10'
+                  }`}
                 >
                   {category.icon}
                   {category.name}
@@ -275,30 +204,29 @@ const Blog = () => {
             </div>
 
             {/* Blog Grid */}
-            {filteredBlogs.length > 0 ? (
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                gap: '2rem',
-              }}>
-                {filteredBlogs.map((blog) => (
-                  <BlogCard key={blog.id} blog={blog} />
-                ))}
-              </div>
-            ) : (
-              <p style={{
-                color: '#9ca3af',
-                fontSize: '1rem',
-                textAlign: 'center',
-                padding: '3rem',
-              }}>
-                No blogs found in this category.
-              </p>
-            )}
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              key={selectedCategory} // Re-trigger animation on category change
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            >
+              {filteredBlogs.length > 0 ? (
+                filteredBlogs.map((blog) => (
+                  <motion.div key={blog.id} variants={itemVariants} className="h-full">
+                    <BlogCard blog={blog} />
+                  </motion.div>
+                ))
+              ) : (
+                <motion.div variants={itemVariants} className="col-span-full py-16 text-center">
+                  <p className="text-gray-500 dark:text-gray-400 text-lg">No blogs found in this category right now.</p>
+                </motion.div>
+              )}
+            </motion.div>
           </section>
         </main>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
