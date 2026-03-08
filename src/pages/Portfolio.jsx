@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { useThemeStyles } from "../hooks/useThemeStyles";
 import ProfileCard from '../components/ProfileCard';
+import { motion } from 'framer-motion';
 
 const Portfolio = () => {
-  const styles = useThemeStyles();
   const projects = [
     {
       name: "YDMS",
@@ -73,167 +72,128 @@ const Portfolio = () => {
     }
   ];
 
-  const projectCardStyle = {
-    backgroundColor: '#18181b',
-    border: '1px solid #27272a',
-    borderRadius: '0.75rem',
-    overflow: 'hidden',
-    transition: 'all 0.3s ease',
-    cursor: 'pointer',
-  };
-
-  const projectCardHoverStyle = {
-    ...projectCardStyle,
-    transform: 'translateY(-4px)',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
-    borderColor: 'rgba(234, 179, 8, 0.3)',
-  };
-
   const ProjectCard = ({ project, isUpcoming = false }) => {
-    const [isHovered, setIsHovered] = useState(false);
-
     return (
-      <div
-        style={isHovered ? projectCardHoverStyle : projectCardStyle}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+      <motion.div
+        whileHover={{ y: -5 }}
+        className="bg-gray-50 dark:bg-zinc-900/50 rounded-2xl overflow-hidden border border-gray-100 dark:border-zinc-800 transition-all duration-300 hover:shadow-xl dark:hover:shadow-yellow-500/10 group cursor-pointer"
       >
         {project.image && (
-          <div style={{ position: 'relative', width: '100%', height: '200px', overflow: 'hidden' }}>
+          <div className="relative w-full h-48 md:h-56 overflow-hidden bg-gray-200 dark:bg-zinc-800">
             <img
               src={project.image}
               alt={project.name}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                transition: 'transform 0.3s ease',
-                transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-              }}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               onError={(e) => {
                 e.target.style.display = 'none';
               }}
             />
             {isUpcoming && (
-              <div style={{
-                position: 'absolute',
-                top: '0.5rem',
-                right: '0.5rem',
-                backgroundColor: 'rgba(234, 179, 8, 0.9)',
-                color: '#000',
-                padding: '0.25rem 0.75rem',
-                borderRadius: '0.5rem',
-                fontSize: '0.75rem',
-                fontWeight: 600,
-              }}>
+              <div className="absolute top-2 right-2 bg-yellow-500/90 text-black px-3 py-1 rounded-lg text-xs font-bold shadow-sm backdrop-blur-sm">
                 Coming Soon
               </div>
             )}
           </div>
         )}
-        <div style={{ padding: '1.5rem' }}>
-          <h3 style={{
-            color: 'white',
-            fontSize: '1.25rem',
-            fontWeight: 600,
-            marginBottom: '0.5rem',
-          }}>
+        <div className="p-6 flex flex-col h-full bg-white dark:bg-transparent">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">
             {project.name}
           </h3>
-          <p style={{
-            color: '#9ca3af',
-            fontSize: '0.875rem',
-            lineHeight: 1.6,
-            marginBottom: '1rem',
-          }}>
+          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4 flex-grow">
             {project.description}
           </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <div className="flex flex-wrap gap-2 mt-auto">
             {project.tech.map((tech, index) => (
               <span
                 key={index}
-                style={{
-                  backgroundColor: 'rgba(234, 179, 8, 0.1)',
-                  border: '1px solid rgba(234, 179, 8, 0.3)',
-                  color: '#eab308',
-                  padding: '0.25rem 0.75rem',
-                  borderRadius: '0.5rem',
-                  fontSize: '0.75rem',
-                  fontWeight: 500,
-                }}
+                className="bg-yellow-100/50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border border-yellow-200/50 dark:border-yellow-700/30 px-3 py-1 rounded-full text-xs font-semibold tracking-wide"
               >
                 {tech}
               </span>
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
   return (
-    <div style={styles.app}>
-      <div style={styles.container}>
-        <aside style={styles.sidebar}>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-7xl mx-auto pt-32 pb-24 px-6 md:px-12 min-h-screen"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <aside className="lg:col-span-4 self-start sticky top-32">
           <ProfileCard />
         </aside>
         
-        <main style={styles.mainContent}>
-          <section style={styles.section}>
-            <h2 style={styles.sectionTitle}>Portfolio</h2>
-            <div style={styles.titleUnderline}></div>
-            <p style={{
-              color: '#9ca3af',
-              fontSize: '1rem',
-              lineHeight: 1.75,
-              marginBottom: '3rem',
-            }}>
+        <main className="lg:col-span-8 bg-white dark:bg-[#18181b] rounded-3xl p-8 shadow-xl dark:shadow-none border border-gray-100 dark:border-gray-800">
+          <section className="mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Portfolio</h2>
+            <div className="w-16 h-1.5 bg-yellow-500 rounded-full mb-8"></div>
+            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-12">
               A collection of my projects, showcasing my work in software development, writing, and education.
             </p>
 
             {/* Completed Projects */}
-            <div style={{ marginBottom: '4rem' }}>
-              <h3 style={{
-                ...styles.sectionTitle,
-                fontSize: '1.5rem',
-                marginBottom: '1.5rem',
-              }}>
-                Completed Projects
+            <div className="mb-16">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-3">
+                <span className="text-yellow-500 text-3xl">•</span> Completed Projects
               </h3>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                gap: '2rem',
-              }}>
+              <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-8"
+              >
                 {projects.map((project, index) => (
-                  <ProjectCard key={index} project={project} />
+                  <motion.div key={index} variants={itemVariants} className="h-full">
+                    <ProjectCard project={project} />
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
 
             {/* Projects to Work On */}
             <div>
-              <h3 style={{
-                ...styles.sectionTitle,
-                fontSize: '1.5rem',
-                marginBottom: '1.5rem',
-              }}>
-                Projects in Development
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-3">
+                <span className="text-yellow-500 text-3xl">•</span> Projects in Development
               </h3>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                gap: '2rem',
-              }}>
+              <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-8"
+              >
                 {projectsToWorkOn.map((project, index) => (
-                  <ProjectCard key={index} project={project} isUpcoming={true} />
+                  <motion.div key={index} variants={itemVariants} className="h-full">
+                    <ProjectCard project={project} isUpcoming={true} />
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </section>
         </main>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

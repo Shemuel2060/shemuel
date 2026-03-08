@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { useThemeStyles } from "../hooks/useThemeStyles";
 import ProfileCard from '../components/ProfileCard';
 import { Mail, Phone, MapPin, Send, MessageCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Contact = () => {
-  const styles = useThemeStyles();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -58,19 +57,19 @@ const Contact = () => {
 
   const contactInfo = [
     {
-      icon: <Mail size={24} color="#eab308" />,
+      icon: <Mail size={24} className="text-yellow-500" />,
       label: "Email",
       value: "2060iona.shemuel@gmail.com",
       link: "mailto:2060iona.shemuel@gmail.com"
     },
     {
-      icon: <Phone size={24} color="#eab308" />,
+      icon: <Phone size={24} className="text-yellow-500" />,
       label: "Phone",
       value: "(+256) 767 896 608",
       link: "tel:+256767896608"
     },
     {
-      icon: <MapPin size={24} color="#eab308" />,
+      icon: <MapPin size={24} className="text-yellow-500" />,
       label: "Location",
       value: "Kampala, Uganda",
       link: null
@@ -78,98 +77,57 @@ const Contact = () => {
   ];
 
   return (
-    <div style={styles.app}>
-      <div style={styles.container}>
-        <aside style={styles.sidebar}>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-7xl mx-auto pt-32 pb-24 px-6 md:px-12 min-h-screen"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <aside className="lg:col-span-4 self-start sticky top-32">
           <ProfileCard />
         </aside>
         
-        <main style={styles.mainContent}>
-          <section style={styles.section}>
-            <h2 style={styles.sectionTitle}>Get In Touch</h2>
-            <div style={styles.titleUnderline}></div>
-            <p style={{
-              color: '#9ca3af',
-              fontSize: '1rem',
-              lineHeight: 1.75,
-              marginBottom: '3rem',
-            }}>
+        <main className="lg:col-span-8 bg-white dark:bg-[#18181b] rounded-3xl p-8 shadow-xl dark:shadow-none border border-gray-100 dark:border-gray-800">
+          <section className="mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Get In Touch</h2>
+            <div className="w-16 h-1.5 bg-yellow-500 rounded-full mb-8"></div>
+            
+            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-12">
               Have a project in mind or want to collaborate? Feel free to reach out. I'm always open to discussing new opportunities and ideas.
             </p>
 
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '3rem',
-            }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               {/* Contact Information */}
               <div>
-                <h3 style={{
-                  color: 'white',
-                  fontSize: '1.5rem',
-                  fontWeight: 600,
-                  marginBottom: '2rem',
-                }}>
+                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
                   Contact Information
                 </h3>
                 
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '1.5rem',
-                  marginBottom: '2rem',
-                }}>
+                <div className="flex flex-col gap-6 mb-8">
                   {contactInfo.map((info, index) => (
                     <div
                       key={index}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        gap: '1rem',
-                        padding: '1.25rem',
-                        backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                        borderRadius: '0.75rem',
-                        border: '1px solid rgba(234, 179, 8, 0.1)',
-                        transition: 'all 0.3s ease',
-                        cursor: info.link ? 'pointer' : 'default',
-                      }}
-                      onMouseEnter={(e) => {
-                        if (info.link) {
-                          e.currentTarget.style.borderColor = 'rgba(234, 179, 8, 0.3)';
-                          e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (info.link) {
-                          e.currentTarget.style.borderColor = 'rgba(234, 179, 8, 0.1)';
-                          e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
-                        }
-                      }}
+                      className={`flex items-start gap-4 p-5 rounded-2xl border transition-all duration-300 ${
+                        info.link 
+                          ? 'cursor-pointer border-gray-100 dark:border-zinc-800 bg-gray-50 dark:bg-zinc-900/50 hover:border-yellow-500/30 hover:bg-yellow-50 dark:hover:bg-yellow-900/10' 
+                          : 'border-transparent bg-gray-50 dark:bg-zinc-900/50 cursor-default'
+                      }`}
                       onClick={() => {
                         if (info.link) {
                           window.location.href = info.link;
                         }
                       }}
                     >
-                      <div style={{ flexShrink: 0, marginTop: '0.25rem' }}>
+                      <div className="shrink-0 mt-1">
                         {info.icon}
                       </div>
-                      <div style={{ flex: 1 }}>
-                        <p style={{
-                          color: '#6b7280',
-                          fontSize: '0.75rem',
-                          fontWeight: 600,
-                          marginBottom: '0.25rem',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.05em',
-                        }}>
+                      <div className="flex-1">
+                        <p className="text-xs font-bold text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wider">
                           {info.label}
                         </p>
-                        <p style={{
-                          color: '#f3f4f6',
-                          fontSize: '0.9375rem',
-                          wordBreak: 'break-word',
-                        }}>
+                        <p className="text-gray-900 dark:text-gray-200 font-medium break-all">
                           {info.value}
                         </p>
                       </div>
@@ -180,33 +138,7 @@ const Contact = () => {
                 {/* WhatsApp Button */}
                 <button
                   onClick={handleWhatsApp}
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.75rem',
-                    padding: '1rem 2rem',
-                    backgroundColor: '#25D366',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '0.75rem',
-                    fontSize: '1rem',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 4px 15px rgba(37, 211, 102, 0.3)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = '#20BA5A';
-                    e.target.style.transform = 'translateY(-2px)';
-                    e.target.style.boxShadow = '0 6px 20px rgba(37, 211, 102, 0.4)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = '#25D366';
-                    e.target.style.transform = 'translateY(0)';
-                    e.target.style.boxShadow = '0 4px 15px rgba(37, 211, 102, 0.3)';
-                  }}
+                  className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-2xl font-semibold transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-[#25D366]/30 hover:shadow-[#25D366]/50"
                 >
                   <MessageCircle size={20} />
                   Message on WhatsApp
@@ -215,27 +147,13 @@ const Contact = () => {
 
               {/* Contact Form */}
               <div>
-                <h3 style={{
-                  color: 'white',
-                  fontSize: '1.5rem',
-                  fontWeight: 600,
-                  marginBottom: '2rem',
-                }}>
+                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
                   Send a Message
                 </h3>
 
-                <form onSubmit={handleSubmit}>
-                  <div style={{ marginBottom: '1.5rem' }}>
-                    <label
-                      htmlFor="name"
-                      style={{
-                        display: 'block',
-                        color: '#9ca3af',
-                        fontSize: '0.875rem',
-                        fontWeight: 500,
-                        marginBottom: '0.5rem',
-                      }}
-                    >
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Name *
                     </label>
                     <input
@@ -245,38 +163,12 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      style={{
-                        width: '100%',
-                        padding: '0.875rem 1rem',
-                        backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                        border: '1px solid #27272a',
-                        borderRadius: '0.5rem',
-                        color: 'white',
-                        fontSize: '0.9375rem',
-                        outline: 'none',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onFocus={(e) => {
-                        e.target.borderColor = '#eab308';
-                        e.target.style.borderColor = '#eab308';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = '#27272a';
-                      }}
+                      className="w-full px-4 py-3.5 bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-300"
                     />
                   </div>
 
-                  <div style={{ marginBottom: '1.5rem' }}>
-                    <label
-                      htmlFor="email"
-                      style={{
-                        display: 'block',
-                        color: '#9ca3af',
-                        fontSize: '0.875rem',
-                        fontWeight: 500,
-                        marginBottom: '0.5rem',
-                      }}
-                    >
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Email *
                     </label>
                     <input
@@ -286,37 +178,12 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      style={{
-                        width: '100%',
-                        padding: '0.875rem 1rem',
-                        backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                        border: '1px solid #27272a',
-                        borderRadius: '0.5rem',
-                        color: 'white',
-                        fontSize: '0.9375rem',
-                        outline: 'none',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = '#eab308';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = '#27272a';
-                      }}
+                      className="w-full px-4 py-3.5 bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-300"
                     />
                   </div>
 
-                  <div style={{ marginBottom: '1.5rem' }}>
-                    <label
-                      htmlFor="subject"
-                      style={{
-                        display: 'block',
-                        color: '#9ca3af',
-                        fontSize: '0.875rem',
-                        fontWeight: 500,
-                        marginBottom: '0.5rem',
-                      }}
-                    >
+                  <div>
+                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Subject
                     </label>
                     <input
@@ -325,37 +192,12 @@ const Contact = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      style={{
-                        width: '100%',
-                        padding: '0.875rem 1rem',
-                        backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                        border: '1px solid #27272a',
-                        borderRadius: '0.5rem',
-                        color: 'white',
-                        fontSize: '0.9375rem',
-                        outline: 'none',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = '#eab308';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = '#27272a';
-                      }}
+                      className="w-full px-4 py-3.5 bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-300"
                     />
                   </div>
 
-                  <div style={{ marginBottom: '2rem' }}>
-                    <label
-                      htmlFor="message"
-                      style={{
-                        display: 'block',
-                        color: '#9ca3af',
-                        fontSize: '0.875rem',
-                        fontWeight: 500,
-                        marginBottom: '0.5rem',
-                      }}
-                    >
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Message *
                     </label>
                     <textarea
@@ -364,39 +206,13 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      rows={6}
-                      style={{
-                        width: '100%',
-                        padding: '0.875rem 1rem',
-                        backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                        border: '1px solid #27272a',
-                        borderRadius: '0.5rem',
-                        color: 'white',
-                        fontSize: '0.9375rem',
-                        outline: 'none',
-                        resize: 'vertical',
-                        fontFamily: 'inherit',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = '#eab308';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = '#27272a';
-                      }}
+                      rows={5}
+                      className="w-full px-4 py-3.5 bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-300 resize-y"
                     />
                   </div>
 
                   {submitStatus === 'success' && (
-                    <div style={{
-                      padding: '1rem',
-                      backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                      border: '1px solid rgba(16, 185, 129, 0.3)',
-                      borderRadius: '0.5rem',
-                      color: '#10b981',
-                      marginBottom: '1rem',
-                      fontSize: '0.875rem',
-                    }}>
+                    <div className="p-4 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 rounded-xl text-emerald-600 dark:text-emerald-400 text-sm font-medium">
                       Email client opened! Please send your message.
                     </div>
                   )}
@@ -404,37 +220,11 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.75rem',
-                      padding: '1rem 2rem',
-                      backgroundColor: isSubmitting ? '#6b7280' : '#eab308',
-                      color: isSubmitting ? '#9ca3af' : '#000',
-                      border: 'none',
-                      borderRadius: '0.75rem',
-                      fontSize: '1rem',
-                      fontWeight: 600,
-                      cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                      transition: 'all 0.3s ease',
-                      boxShadow: isSubmitting ? 'none' : '0 4px 15px rgba(234, 179, 8, 0.3)',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isSubmitting) {
-                        e.target.style.backgroundColor = '#fbbf24';
-                        e.target.style.transform = 'translateY(-2px)';
-                        e.target.style.boxShadow = '0 6px 20px rgba(234, 179, 8, 0.4)';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isSubmitting) {
-                        e.target.style.backgroundColor = '#eab308';
-                        e.target.style.transform = 'translateY(0)';
-                        e.target.style.boxShadow = '0 4px 15px rgba(234, 179, 8, 0.3)';
-                      }
-                    }}
+                    className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg ${
+                      isSubmitting 
+                        ? 'bg-gray-300 dark:bg-zinc-700 text-gray-500 cursor-not-allowed shadow-none' 
+                        : 'bg-yellow-500 hover:bg-yellow-400 text-black transform hover:-translate-y-1 shadow-yellow-500/30 hover:shadow-yellow-500/50'
+                    }`}
                   >
                     <Send size={20} />
                     {isSubmitting ? 'Opening Email...' : 'Send Message'}
@@ -445,7 +235,7 @@ const Contact = () => {
           </section>
         </main>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
