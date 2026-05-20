@@ -8,8 +8,8 @@ import WhatsAppFAB from './components/WhatsAppFAB';
 import Home from './pages/Home';
 import About from './pages/About';
 import ResumePage from './pages/Resume';
-import Portfolio from './pages/Portfolio';
-import Blog from './pages/Blog';
+// import Portfolio from './pages/Portfolio';
+// import Blog from './pages/Blog';
 import Quotes from './pages/Quotes';
 import Contact from './pages/Contact';
 
@@ -26,8 +26,8 @@ const AppContent = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/resume" element={<ResumePage />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/blog" element={<Blog />} />
+          {/* <Route path="/portfolio" element={<Portfolio />} /> */}
+          {/* <Route path="/blog" element={<Blog />} /> */}
           <Route path="/quotes" element={<Quotes />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>

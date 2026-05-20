@@ -1,5 +1,5 @@
 import ProfileCard from '../components/ProfileCard';
-import ServicesSection from '../components/ServicesSection';
+import WelcomeSection from '../components/WelcomeSection';
 import { motion } from 'framer-motion';
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
         </aside>
         
         <main className="lg:col-span-8 bg-white dark:bg-[#18181b] rounded-3xl p-8 shadow-xl dark:shadow-none border border-gray-100 dark:border-gray-800">
-          <ServicesSection />
+          <WelcomeSection />
         </main>
       </div>
     </motion.div>
