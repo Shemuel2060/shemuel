@@ -66,7 +66,7 @@ const WelcomeSection = () => {
           <span>Welcome to my digital space</span>
           <span className="animate-pulse">👋</span>
         </div>
-        
+
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
           Crafting Purposeful Technology,<br />
           <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 bg-clip-text text-transparent">
@@ -77,12 +77,12 @@ const WelcomeSection = () => {
       </motion.div>
 
       {/* Intro Text */}
-      <motion.div 
+      <motion.div
         variants={itemVariants}
         className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed space-y-4 max-w-3xl"
       >
         <p>
-          I am so glad you've stopped by! This website is my digital home—a place where I share my professional milestones, personal philosophies, and the things that inspire me. 
+          I am so glad you've stopped by! This is my digital home—a place where I share my professional milestones, personal philosophies, and the things that inspire me.
         </p>
         <p>
           As a software engineer, my day-to-day focus is on building robust solutions in the Java and Web ecosystems. But beyond the code, my mission is continuous growth and creating a lasting, positive impact—whether by leading development teams, mentoring aspiring engineers, or volunteering to teach technology to underrepresented communities.
@@ -92,11 +92,11 @@ const WelcomeSection = () => {
       {/* Navigation Grid */}
       <motion.div variants={itemVariants} className="space-y-6">
         <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200">What would you like to explore first?</h3>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {exploreItems.map((item, index) => (
-            <Link 
-              to={item.link} 
+            <Link
+              to={item.link}
               key={index}
               className="group block bg-zinc-50 hover:bg-white dark:bg-zinc-900/40 dark:hover:bg-zinc-900/90 rounded-3xl p-6 border border-gray-100 hover:border-yellow-500/30 dark:border-zinc-800/50 dark:hover:border-yellow-500/20 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1"
             >
@@ -123,7 +123,7 @@ const WelcomeSection = () => {
       </motion.div>
 
       {/* CTA Footer Card */}
-      <motion.div 
+      <motion.div
         variants={itemVariants}
         className="bg-gradient-to-br from-yellow-500/10 to-amber-600/5 dark:from-yellow-950/20 dark:to-zinc-900/20 rounded-3xl p-8 border border-yellow-500/10 flex flex-col md:flex-row md:items-center justify-between gap-6"
       >
@@ -133,8 +133,8 @@ const WelcomeSection = () => {
             Whether you have an upcoming project, need architectural advice, or want to collaborate on educational training, I'm always open to discussing new ideas.
           </p>
         </div>
-        <Link 
-          to="/contact" 
+        <Link
+          to="/contact"
           className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-yellow-500 hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-500 text-zinc-900 dark:text-black font-bold text-sm shadow-md hover:shadow-lg transition-all transform hover:scale-105 duration-300"
         >
           Get in Touch

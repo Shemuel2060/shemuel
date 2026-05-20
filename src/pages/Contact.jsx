@@ -21,32 +21,48 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus(null);
     
-    // Create mailto link
-    const subject = encodeURIComponent(formData.subject || 'Contact from Portfolio');
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    );
-    const mailtoLink = `mailto:2060iona.shemuel@gmail.com?subject=${subject}&body=${body}`;
-    
-    // Open email client
-    window.location.href = mailtoLink;
-    
-    // Reset form after a delay
-    setTimeout(() => {
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          access_key: "b506a2ba-01ee-4a03-beaa-e0d7f829a647",
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || "Contact from Portfolio Website",
+          message: formData.message,
+          from_name: "Samuel Katongole Portfolio"
+        })
       });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+        setSubmitStatus('success');
+      } else {
+        console.error("Web3Forms error:", result);
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error("Web3Forms fetch error:", error);
+      setSubmitStatus('error');
+    } finally {
       setIsSubmitting(false);
-      setSubmitStatus('success');
-      setTimeout(() => setSubmitStatus(null), 3000);
-    }, 1000);
+    }
   };
 
   const handleWhatsApp = () => {
@@ -163,7 +179,8 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3.5 bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-300"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3.5 bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-300 disabled:opacity-50"
                     />
                   </div>
 
@@ -178,7 +195,8 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3.5 bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-300"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3.5 bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-300 disabled:opacity-50"
                     />
                   </div>
 
@@ -192,7 +210,8 @@ const Contact = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3.5 bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-300"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3.5 bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-300 disabled:opacity-50"
                     />
                   </div>
 
@@ -206,14 +225,23 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleChange}
                       required
+                      disabled={isSubmitting}
                       rows={5}
-                      className="w-full px-4 py-3.5 bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-300 resize-y"
+                      className="w-full px-4 py-3.5 bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all duration-300 resize-y disabled:opacity-50"
                     />
                   </div>
 
                   {submitStatus === 'success' && (
-                    <div className="p-4 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 rounded-xl text-emerald-600 dark:text-emerald-400 text-sm font-medium">
-                      Email client opened! Please send your message.
+                    <div className="p-4 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 rounded-xl text-emerald-600 dark:text-emerald-400 text-sm font-medium flex items-start gap-2">
+                      <span className="text-base font-bold shrink-0">✓</span>
+                      <span>Your message has been sent successfully. Thank you!</span>
+                    </div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <div className="p-4 bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 rounded-xl text-rose-600 dark:text-rose-400 text-sm font-medium flex items-start gap-2">
+                      <span className="text-base font-bold shrink-0">⚠</span>
+                      <span>Failed to send message. Please try again or message directly via WhatsApp.</span>
                     </div>
                   )}
 
@@ -226,8 +254,8 @@ const Contact = () => {
                         : 'bg-yellow-500 hover:bg-yellow-400 text-black transform hover:-translate-y-1 shadow-yellow-500/30 hover:shadow-yellow-500/50'
                     }`}
                   >
-                    <Send size={20} />
-                    {isSubmitting ? 'Opening Email...' : 'Send Message'}
+                    <Send size={20} className={isSubmitting ? "animate-pulse" : ""} />
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               </div>
